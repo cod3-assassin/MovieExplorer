@@ -6,7 +6,7 @@ import DrawerNavigation from "./Components/Navigation/DrawerNavigationComp";
 import MoviesScreen from "./Components/screens/MoviesScreen";
 import MovieDetailScreen from "./Components/screens/MovieDetailScreen";
 import FavouriteContextProvider from "./Components/Context/favourite-context";
-import TabNavigation from "./Components/Navigation/TabNavigation"; // Import the TabNavigation
+import TabNavigation from "./Components/Navigation/TabNavigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,21 +17,18 @@ export default function App() {
       <FavouriteContextProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            {/* This is the main entry point where DrawerNavigation will be used */}
             <Stack.Screen
               name="Drawer"
               component={DrawerNavigation}
               options={{ headerShown: false }}
             />
 
-            {/* Add the Tabs as a new main entry screen */}
             <Stack.Screen
               name="Tabs"
-              component={TabNavigation} // Use TabNavigation here
-              options={{ headerShown: false }} // Hide default header, we'll design our own
+              component={TabNavigation}
+              options={{ headerShown: false }}
             />
 
-            {/* Other screens like Movies and MovieDetails */}
             <Stack.Screen
               name="Movies"
               component={MoviesScreen}
