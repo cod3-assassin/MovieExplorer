@@ -9,12 +9,10 @@ export const FavouriteContext = createContext({
 function FavouriteContextProvider({ children }) {
   const [favouriteMovie, setFavouriteMovie] = useState([]);
   function addFavourite(id) {
-    console.log("Adding Favourite:", id);
     setFavouriteMovie((currentFavId) => [...currentFavId, id]);
   }
 
   function removefavourite(id) {
-    console.log("Removing Favourite:", id);
     setFavouriteMovie((currentFavId) =>
       currentFavId.filter((MovieId) => MovieId !== id)
     );

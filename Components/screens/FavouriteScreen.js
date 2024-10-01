@@ -4,30 +4,23 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import MovieCard from "../MovieCard";
 import { FavouriteContext } from "../Context/favourite-context";
-import MOVIES from "../Data/data.json"; // Ensure this path is correct
+import MOVIES from "../Data/data.json";
 
 export default function FavouriteScreen({ navigation }) {
   const { ids } = useContext(FavouriteContext);
-  console.log("Favourite IDs: ", ids); // Log the IDs from context
 
-  // Accessing the movies array from the MOVIES object
-  const favouriteMovies = Array.isArray(MOVIES.movies)
-    ? MOVIES.movies.filter((movie) => ids.map(Number).includes(movie.id)) // Convert ids to numbers
-    : [];
+  const favouriteMovies = MOVIES.movies.filter((movie) =>
+    ids.map(Number).includes(movie.id)
+  );
 
-  // Log the filtered favourite movies
-  console.log("Filtered Favourite Movies: ", favouriteMovies); // Log here
+  const adjustedMovies =
+    favouriteMovies.length % 2 === 1
+      ? [...favouriteMovies, { id: null }]
+      : favouriteMovies;
 
-  function renderMovieItem({ item }) {
-    return (
-      <MovieCard
-        movie={item}
-        onPress={() =>
-          navigation.navigate("MovieDetails", { selectedMovie: item })
-        }
-      />
-    );
-  }
+  const handleCardPress = (movie) => {
+    navigation.navigate("MovieDetails", { selectedMovie: movie });
+  };
 
   return (
     <LinearGradient
@@ -44,18 +37,28 @@ export default function FavouriteScreen({ navigation }) {
         </Pressable>
       </View>
 
-      <View style={styles.content}>
-        {favouriteMovies.length > 0 ? (
-          <FlatList
-            data={favouriteMovies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderMovieItem}
-            numColumns={2}
-          />
-        ) : (
-          <Text style={styles.text}>No Favourites Added Yet!</Text>
-        )}
-      </View>
+      {favouriteMovies.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>No favourites yet, add some!</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={adjustedMovies}
+          renderItem={({ item }) =>
+            item.id ? (
+              <MovieCard movie={item} onPress={() => handleCardPress(item)} />
+            ) : (
+              <View style={styles.placeholder} />
+            )
+          }
+          keyExtractor={(item) =>
+            item.id ? item.id.toString() : "placeholder"
+          }
+          numColumns={2}
+          contentContainerStyle={styles.flatListContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </LinearGradient>
   );
 }
@@ -85,14 +88,24 @@ const styles = StyleSheet.create({
     right: 20,
     top: 30,
   },
-  content: {
+  flatListContainer: {
+    paddingHorizontal: 8,
+    paddingTop: 16,
+  },
+  placeholder: {
+    width: "48%",
+    height: 200,
+    margin: 8,
+  },
+  emptyContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
   },
-  text: {
-    color: "#FFFFFF",
-    fontSize: 22,
+  emptyText: {
+    fontSize: 20,
+    color: "#ffffff",
+    textAlign: "center",
+    paddingHorizontal: 20,
   },
 });

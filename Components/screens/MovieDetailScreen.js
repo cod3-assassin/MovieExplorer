@@ -1,8 +1,9 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FavouriteContext } from "../Context/favourite-context";
 import { Ionicons } from "@expo/vector-icons";
+import CustomAlert from "../CustomAlert";
 
 export default function MovieDetailsScreen({ route, navigation }) {
   const { selectedMovie } = route.params;
@@ -11,12 +12,25 @@ export default function MovieDetailsScreen({ route, navigation }) {
   const MovieId = selectedMovie.id;
   const movieIsFav = FavMovie.ids.includes(MovieId);
 
-  function chnageFavorateStatusHandler() {
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  function changeFavoriteStatusHandler() {
     if (movieIsFav) {
       FavMovie.removefavourite(MovieId);
+      setAlertMessage(
+        `${selectedMovie.title} has been removed from your favorites.`
+      );
+      setAlertType("error");
     } else {
       FavMovie.addFavourite(MovieId);
+      setAlertMessage(
+        `${selectedMovie.title} has been added to your favorites.`
+      );
+      setAlertType("success");
     }
+    setAlertVisible(true);
   }
 
   useLayoutEffect(() => {
@@ -28,7 +42,7 @@ export default function MovieDetailsScreen({ route, navigation }) {
             name={movieIsFav ? "star" : "star-outline"}
             color="white"
             size={24}
-            onPress={chnageFavorateStatusHandler}
+            onPress={changeFavoriteStatusHandler}
           />
         );
       },
@@ -51,7 +65,6 @@ export default function MovieDetailsScreen({ route, navigation }) {
         <View style={styles.contentContainer}>
           <Text style={styles.title}>{selectedMovie.title}</Text>
 
-          {/* Rating Circle */}
           <LinearGradient
             colors={["#FFD700", "#FFA500"]}
             style={styles.ratingContainer}
@@ -59,7 +72,6 @@ export default function MovieDetailsScreen({ route, navigation }) {
             <Text style={styles.rating}>{selectedMovie.rating.toFixed(1)}</Text>
           </LinearGradient>
 
-          {/* Categories */}
           <View style={styles.categoriesContainer}>
             {selectedMovie.categories.map((category, index) => (
               <LinearGradient
@@ -72,7 +84,6 @@ export default function MovieDetailsScreen({ route, navigation }) {
             ))}
           </View>
 
-          {/* Cast */}
           <View style={styles.castContainer}>
             <Text style={styles.sectionTitle}>Cast:</Text>
             <View style={styles.castList}>
@@ -84,20 +95,18 @@ export default function MovieDetailsScreen({ route, navigation }) {
             </View>
           </View>
 
-          {/* Description */}
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionTitle}>Description:</Text>
             <Text style={styles.description}>{selectedMovie.description}</Text>
           </View>
 
-          {/* Budget & Box Office */}
           <View style={styles.budgetContainer}>
             <LinearGradient
               colors={["#A1FFCE", "#FAFFD1"]}
               style={styles.budgetBox}
             >
               <Text style={styles.budgetTitle}>Budget:</Text>
-              <Text style={[styles.budget, (style = { color: "black" })]}>
+              <Text style={[styles.budget, { color: "black" }]}>
                 ${selectedMovie.budget.toLocaleString()}
               </Text>
             </LinearGradient>
@@ -114,6 +123,15 @@ export default function MovieDetailsScreen({ route, navigation }) {
           </View>
         </View>
       </ScrollView>
+
+      {/* Custom Alert */}
+      <CustomAlert
+        visible={alertVisible}
+        message={alertMessage}
+        onClose={() => setAlertVisible(false)}
+        onNavigate={() => navigation.navigate("Favourite")}
+        type={alertType}
+      />
     </LinearGradient>
   );
 }
@@ -152,7 +170,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
   },
 
-  /* Rating Circle with Gradient Border */
   ratingContainer: {
     width: 80,
     height: 80,
@@ -169,7 +186,6 @@ const styles = StyleSheet.create({
     color: "#3E4A89",
   },
 
-  /* Categories Pill with Gradient */
   categoriesContainer: {
     flexDirection: "row",
     flexWrap: "wrap",

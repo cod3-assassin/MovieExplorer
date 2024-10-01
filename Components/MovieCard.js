@@ -5,19 +5,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 export default function MovieCard({ movie, onPress }) {
   return (
     <Pressable onPress={onPress} style={styles.cardContainer}>
-      {/* Image will take full height and width of the card */}
       <Image source={{ uri: movie.imageUrl }} style={styles.image} />
 
-      {/* Overlay for text and icons */}
       <View style={styles.overlay}>
-        {/* Semi-transparent background for title */}
         <View style={styles.titleContainer}>
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
             {movie.title}
           </Text>
         </View>
 
-        {/* Bottom container for genre and rating */}
         <View style={styles.details}>
           <View style={styles.genreContainer}>
             <Text style={styles.genre} numberOfLines={1} ellipsizeMode="tail">
@@ -47,11 +43,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     width: "48%",
     height: 280,
-    position: "relative", // Allows positioning of child elements
+    position: "relative",
   },
   image: {
     width: "100%",
-    height: "100%", // Image covers full height and width
+    height: "100%",
     position: "absolute",
     top: 0,
     left: 0,
@@ -63,12 +59,12 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    justifyContent: "space-between", // Keeps title at top, rating/genre at bottom
+    justifyContent: "space-between",
     zIndex: 2,
     padding: 10,
   },
   titleContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for title
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
@@ -83,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   genreContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for genre
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     paddingVertical: 3,
     paddingHorizontal: 10,
     borderRadius: 5,
@@ -109,18 +105,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-// useLayoutEffect(() => {
-//   navigation.setOptions({
-//     headerRight: () => {
-
-//       return (
-//         <Ionicons
-//           icon={movieIsFav ? "star" : "star-outline"}
-//           color="white"
-//           onPress={chnageFavorateStatusHandler}
-//         />
-//       );
-//     },
-//   });
-// }, [navigation, chnageFavorateStatusHandler]);
