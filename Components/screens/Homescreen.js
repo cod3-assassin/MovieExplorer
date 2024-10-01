@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons"; // Import Ionicons for hamburger icon
+import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../SearchBar";
 import Movies from "../Data/data.json";
 
@@ -56,13 +56,12 @@ export default function Homescreen({ navigation }) {
         <View style={styles.headerStyle}>
           <Text style={styles.headerTitle}>Movie Explorer</Text>
 
-          {/* Hamburger Icon to toggle drawer */}
           <Ionicons
             name="menu"
             size={32}
             color="#FFFFFF"
             style={styles.hamburgerIcon}
-            onPress={() => navigation.toggleDrawer()} // Toggling the drawer
+            onPress={() => navigation.toggleDrawer()}
           />
         </View>
         <View style={styles.searchbarContaner}>
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   hamburgerIcon: {
-    marginLeft: "auto", // Pushes the hamburger icon to the far right
+    marginLeft: "auto",
   },
   scrollContainer: {
     paddingHorizontal: 16,

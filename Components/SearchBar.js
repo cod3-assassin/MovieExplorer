@@ -6,11 +6,10 @@ function SearchBar({ onSearch }) {
   const [userInput, setUserInput] = useState("");
   const [debouncedInput, setDebouncedInput] = useState("");
 
-  // Debounce user input to avoid triggering search on every keystroke
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedInput(userInput);
-    }, 300); // Adjust the delay as needed
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -18,7 +17,7 @@ function SearchBar({ onSearch }) {
   }, [userInput]);
 
   useEffect(() => {
-    onSearch(debouncedInput); // Trigger search after debounce
+    onSearch(debouncedInput);
   }, [debouncedInput, onSearch]);
 
   return (
@@ -45,13 +44,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingHorizontal: 15,
     height: 50,
-    elevation: 6, // Adds shadow to give a floating effect
+    elevation: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     marginVertical: 20,
-    width: "100%", // Adjust based on parent container width
+    width: "100%",
   },
   icon: {
     marginRight: 10,

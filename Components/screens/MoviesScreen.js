@@ -3,8 +3,7 @@ import { FlatList, StyleSheet, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MovieCard from "../MovieCard";
 import Movies from "../Data/data.json";
-import SearchBar from "../SearchBar"; // Import SearchBar
-
+import SearchBar from "../SearchBar";
 export default function MoviesScreen({ route, navigation }) {
   const { selectedCategory, showAllMovies } = route.params || {};
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,7 +44,7 @@ export default function MoviesScreen({ route, navigation }) {
 
   const adjustedMovies =
     filteredMovies.length % 2 === 1
-      ? [...filteredMovies, { id: null }] // Add a placeholder for even column count
+      ? [...filteredMovies, { id: null }]
       : filteredMovies;
 
   return (

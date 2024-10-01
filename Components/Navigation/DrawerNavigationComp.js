@@ -2,7 +2,7 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import CustomDrawerContent from "./CustomDrawerContent";
-import TabNavigationComp from "./TabNavigation"; // Import new Tab Navigation
+import TabNavigationComp from "./TabNavigation";
 import { Ionicons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
@@ -27,7 +27,7 @@ export default function DrawerNavigation() {
     >
       <Drawer.Screen
         name="Home"
-        component={TabNavigationComp} // Use Tab Navigation here
+        component={TabNavigationComp}
         options={{
           headerShown: false,
           drawerIcon: ({ color }) => (

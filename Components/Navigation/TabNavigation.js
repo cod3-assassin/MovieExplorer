@@ -25,19 +25,19 @@ export default function TabNavigationComp() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="home" size={24} color={color} />
           ),
-          headerShown: false, // Header hidden to match Drawer look
+          headerShown: false,
         }}
       />
       <Tab.Screen
         name="MoviesTab"
         component={MoviesScreen}
-        initialParams={{ showAllMovies: true }} // Pass param to show all movies
+        initialParams={{ showAllMovies: true }}
         options={{
           title: "Movies",
           tabBarIcon: ({ color }) => (
             <Ionicons name="film" size={24} color={color} />
           ),
-          headerShown: false, // Header hidden to match Drawer look
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

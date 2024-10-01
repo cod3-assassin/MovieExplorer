@@ -9,7 +9,6 @@ import { Ionicons } from "@expo/vector-icons";
 export default function CustomDrawerContent(props) {
   return (
     <View style={styles.drawerContainer}>
-      {/* Header Section */}
       <View style={styles.headerContainer}>
         <Ionicons
           name="film-outline"
@@ -20,7 +19,6 @@ export default function CustomDrawerContent(props) {
         <Text style={styles.headerText}>Movie Explorer</Text>
       </View>
 
-      {/* Scrollable Drawer Items */}
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={styles.drawerContent}
@@ -28,7 +26,6 @@ export default function CustomDrawerContent(props) {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
 
-      {/* Footer Section */}
       <View style={styles.footerContainer}>
         <View style={styles.footerItem}>
           <Ionicons name="log-out-outline" size={18} color="#AAB6E3" />
